@@ -870,7 +870,7 @@
 <section class="cta-section">
   <h2 class="fade-in">Bạn không cần quyết định ngay.<br>Bạn chỉ cần bắt đầu.</h2>
   <p class="lead fade-in">15 phút tìm hiểu hôm nay có thể thay đổi cả tương lai tài chính của gia đình bạn. Không cam kết. Không áp lực.</p>
-  <a href="quiz-trambaohiem.html" class="cta-button fade-in">Bắt đầu tại đây</a>
+  <button class="cta-button fade-in" onclick="openQuiz()">Bắt đầu tại đây</button>
   <p class="cta-note fade-in">Hotline: 0974.262.599 · Email: cskh@trambaohiem.com</p>
 </section>
 
@@ -879,6 +879,329 @@
   <div class="footer-brand">Trạm Bảo Hiểm</div>
   <p>trambaohiem.com · 0974.262.599</p>
 </footer>
+
+<!-- ==================== QUIZ POPUP OVERLAY ==================== -->
+<div class="quiz-overlay" id="quizOverlay" onclick="if(event.target===this)closeQuiz()">
+  <div class="quiz-popup">
+    <button class="quiz-close" onclick="closeQuiz()">✕</button>
+
+    <!-- QUIZ HEADER -->
+    <div class="qz-header" id="qzHeader">
+      <div class="qz-brand">Trạm Bảo Hiểm</div>
+      <h2 class="qz-title">3 phút để hiểu rõ hơn nhu cầu bảo vệ tài chính của gia đình bạn</h2>
+      <p class="qz-sub">6 câu hỏi — không đáp án đúng sai — chỉ giúp bạn nhìn rõ hơn.</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="qz-progress-label" id="qzProgressLabel">Câu 1 / 6</div>
+    <div class="qz-progress"><div class="qz-progress-fill" id="qzProgressFill" style="width:0%"></div></div>
+
+    <!-- Q1 -->
+    <div class="qz-slide active" data-q="1">
+      <div class="qz-qnum">Câu 1</div>
+      <div class="qz-qtext">Có bao nhiêu người đang phụ thuộc vào thu nhập của bạn?</div>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelect(1,this)">Không có ai — tôi chỉ lo cho bản thân</button>
+        <button class="qz-opt" onclick="qzSelect(1,this)">1–2 người (vợ/chồng, 1 con nhỏ)</button>
+        <button class="qz-opt" onclick="qzSelect(1,this)">3–4 người (gia đình nhỏ + cha mẹ)</button>
+        <button class="qz-opt" onclick="qzSelect(1,this)">5 người trở lên</button>
+      </div>
+      <div class="qz-nav"><span></span><button class="qz-btn" id="qzNext1" disabled onclick="qzGo(2)">Tiếp theo</button></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="qz-slide" data-q="2">
+      <div class="qz-qnum">Câu 2</div>
+      <div class="qz-qtext">Bạn và gia đình có thói quen tiết kiệm trước khi chi tiêu không?</div>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelect(2,this)">Có, luôn trích một khoản cố định mỗi tháng</button>
+        <button class="qz-opt" onclick="qzSelect(2,this)">Thỉnh thoảng, khi nào dư thì để dành</button>
+        <button class="qz-opt" onclick="qzSelect(2,this)">Chưa thật sự có thói quen này</button>
+        <button class="qz-opt" onclick="qzSelect(2,this)">Thu nhập hiện tại chỉ đủ chi tiêu</button>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzGo(1)">Quay lại</button><button class="qz-btn" id="qzNext2" disabled onclick="qzGo(3)">Tiếp theo</button></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="qz-slide" data-q="3">
+      <div class="qz-qnum">Câu 3</div>
+      <div class="qz-qtext">Bạn đã có kế hoạch hoặc khoản dự phòng đủ lớn để giúp gia đình không bị xáo trộn khi xảy ra rủi ro ngoài ý muốn chưa?</div>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelect(3,this)">Đã có — tôi cảm thấy khá yên tâm</button>
+        <button class="qz-opt" onclick="qzSelect(3,this)">Có một ít, nhưng chưa chắc là đủ</button>
+        <button class="qz-opt" onclick="qzSelect(3,this)">Chưa có — đây là điều tôi đang lo nghĩ</button>
+        <button class="qz-opt" onclick="qzSelect(3,this)">Chưa bao giờ nghĩ đến điều này</button>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzGo(2)">Quay lại</button><button class="qz-btn" id="qzNext3" disabled onclick="qzGo(4)">Tiếp theo</button></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="qz-slide" data-q="4">
+      <div class="qz-qnum">Câu 4</div>
+      <div class="qz-qtext">Bạn có muốn chuẩn bị một món quà mang theo thời gian — để trao lại cho con khi bước vào các cột mốc quan trọng của cuộc đời?</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;">Vào đại học, khởi nghiệp, kết hôn, ngôi nhà đầu tiên... Đời cha mẹ trồng cây, đời con cháu có bóng mát.</p>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelect(4,this)">Rất muốn — đây là điều ý nghĩa với tôi</button>
+        <button class="qz-opt" onclick="qzSelect(4,this)">Hay đấy — tôi chưa nghĩ đến nhưng muốn tìm hiểu</button>
+        <button class="qz-opt" onclick="qzSelect(4,this)">Ưu tiên hiện tại là bảo vệ trước, tích luỹ sau</button>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzGo(3)">Quay lại</button><button class="qz-btn" id="qzNext4" disabled onclick="qzGo(5)">Tiếp theo</button></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="qz-slide" data-q="5">
+      <div class="qz-qnum">Câu 5</div>
+      <div class="qz-qtext">Điều quan trọng nhất đối với bạn khi quyết định sở hữu một hợp đồng bảo hiểm là gì?</div>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelect(5,this)">Quyền lợi rõ ràng, minh bạch, dễ hiểu</button>
+        <button class="qz-opt" onclick="qzSelect(5,this)">Phí hợp lý, phù hợp với thu nhập</button>
+        <button class="qz-opt" onclick="qzSelect(5,this)">Người tư vấn đáng tin, đồng hành lâu dài</button>
+        <button class="qz-opt" onclick="qzSelect(5,this)">Công ty bảo hiểm uy tín, chi trả nhanh</button>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzGo(4)">Quay lại</button><button class="qz-btn" id="qzNext5" disabled onclick="qzGo(6)">Tiếp theo</button></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="qz-slide" data-q="6">
+      <div class="qz-qnum">Câu cuối</div>
+      <div class="qz-qtext">Bạn có sẵn sàng dành 30–45 phút cùng chuyên viên Trạm Bảo Hiểm để xác lập mục tiêu tài chính và lập kế hoạch hành động cụ thể?</div>
+      <div class="qz-opts">
+        <button class="qz-opt" onclick="qzSelectQ6('ready',this)">Sẵn sàng sắp xếp thời gian — vì đây là việc quan trọng</button>
+        <button class="qz-opt" onclick="qzSelectQ6('notready',this)">Tôi chưa sẵn sàng — đời còn dài, cứ từ từ</button>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzGo(5)">Quay lại</button><button class="qz-btn" id="qzNext6" disabled onclick="qzHandleQ6()">Bước tiếp theo</button></div>
+    </div>
+
+    <!-- BOOKING FORM -->
+    <div class="qz-slide" data-q="booking">
+      <div class="qz-qnum">Đặt lịch hẹn</div>
+      <div class="qz-qtext">Tuyệt vời! Hãy để lại thông tin để chuyên viên liên hệ hỗ trợ bạn.</div>
+      <div class="qz-form">
+        <label class="qz-label">Họ tên</label>
+        <input type="text" class="qz-input" id="qzName" placeholder="Nguyễn Văn A">
+        <label class="qz-label">Số điện thoại</label>
+        <input type="tel" class="qz-input" id="qzPhone" placeholder="0xxx xxx xxx">
+        <label class="qz-label">Email <span style="color:var(--text-muted);font-weight:400;font-size:12px;">(tuỳ chọn)</span></label>
+        <input type="email" class="qz-input" id="qzEmail" placeholder="email@example.com">
+        <label class="qz-label">Bạn muốn nhận cuộc gọi khi nào?</label>
+        <div class="qz-opts" style="margin-top:6px;">
+          <button class="qz-opt qz-time" onclick="qzSelectTime(this)">Sáng (8h – 12h)</button>
+          <button class="qz-opt qz-time" onclick="qzSelectTime(this)">Chiều (13h – 17h)</button>
+          <button class="qz-opt qz-time" onclick="qzSelectTime(this)">Tối (18h – 20h)</button>
+          <button class="qz-opt qz-time" onclick="qzSelectTime(this)">Bất kỳ lúc nào</button>
+        </div>
+      </div>
+      <div class="qz-nav"><button class="qz-back" onclick="qzBackToQ6()">Quay lại</button><button class="qz-btn" onclick="qzSubmit()">Bước tiếp theo</button></div>
+    </div>
+
+    <!-- RESULT: READY -->
+    <div class="qz-result" id="qzResultReady">
+      <div style="font-size:2.5rem;margin-bottom:16px;">✅</div>
+      <h3 class="qz-result-title">Cảm ơn bạn!</h3>
+      <p class="qz-result-text">Thông tin đã được gửi. Chuyên viên sẽ liên hệ bạn trong 24 giờ.</p>
+      <div class="qz-messenger">
+        <p style="font-size:13px;font-weight:600;margin-bottom:10px;">Hoặc gửi tin nhắn nhanh qua Messenger:</p>
+        <div class="qz-copy-block">
+          <p class="qz-copy-text" id="qzCopyText">Xin chào Trạm Bảo Hiểm, mình vừa hoàn thành bài đánh giá và muốn được tư vấn. Mình tên <span id="qzCopyName">___</span>, SĐT <span id="qzCopyPhone">___</span>.</p>
+          <button class="qz-btn-copy" onclick="qzCopy()">Sao chép tin nhắn</button>
+        </div>
+        <a href="https://m.me/trambaohiemonline" target="_blank" class="qz-btn-messenger">Mở Messenger</a>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:16px;">Hotline: 0974.262.599 · cskh@trambaohiem.com</p>
+    </div>
+
+    <!-- RESULT: NOT READY -->
+    <div class="qz-result" id="qzResultNotReady">
+      <div style="font-size:2.5rem;margin-bottom:16px;">🤝</div>
+      <h3 class="qz-result-title">Hoàn toàn hiểu bạn.</h3>
+      <p class="qz-result-text">Không ai muốn nghĩ đến rủi ro — và chưa sẵn sàng là rất bình thường.</p>
+      <p class="qz-result-text">Chỉ có một điều: <strong>bảo hiểm phụ thuộc vào thời điểm.</strong> Phí hôm nay luôn thấp hơn ngày mai. Sức khoẻ hôm nay luôn tốt hơn năm sau. Và có lúc — dù muốn — bạn không còn đủ điều kiện.</p>
+      <button class="qz-btn" onclick="qzShowBooking()" style="width:100%;margin-top:20px;padding:14px;">Khi nào sẵn sàng — đặt hẹn tại đây</button>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:16px;">Hotline: 0974.262.599 · cskh@trambaohiem.com</p>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* ===== QUIZ OVERLAY ===== */
+  .quiz-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(4px);}
+  .quiz-overlay.open{display:flex;}
+  .quiz-popup{background:var(--bg);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:36px 28px;position:relative;animation:popIn .3s ease;}
+  @keyframes popIn{from{opacity:0;transform:scale(.95) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  .quiz-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;color:var(--text-muted);cursor:pointer;padding:4px 8px;border-radius:6px;transition:all .2s;}
+  .quiz-close:hover{background:rgba(0,0,0,.06);color:var(--text);}
+
+  .qz-header{text-align:center;margin-bottom:28px;}
+  .qz-brand{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .qz-title{font-size:1.2rem;font-weight:800;line-height:1.35;color:var(--text);letter-spacing:-.02em;margin-bottom:10px;}
+  .qz-sub{font-size:14px;color:var(--text-light);}
+
+  .qz-progress-label{font-size:12px;color:var(--text-muted);font-weight:500;margin-bottom:6px;}
+  .qz-progress{width:100%;height:3px;background:rgba(0,0,0,.06);border-radius:3px;margin-bottom:28px;overflow:hidden;}
+  .qz-progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+  .qz-slide{display:none;animation:fadeUp .3s ease;}
+  .qz-slide.active{display:block;}
+  .qz-qnum{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:10px;}
+  .qz-qtext{font-size:1.05rem;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:24px;}
+
+  .qz-opts{display:flex;flex-direction:column;gap:10px;}
+  .qz-opt{display:block;width:100%;padding:13px 16px;background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:10px;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--text);text-align:left;cursor:pointer;transition:all .2s;line-height:1.5;}
+  .qz-opt:hover{border-color:var(--accent);background:rgba(27,107,45,.03);}
+  .qz-opt.sel{border-color:var(--accent);background:rgba(27,107,45,.06);color:var(--accent);font-weight:600;}
+
+  .qz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;}
+  .qz-back{padding:10px 20px;background:transparent;border:1.5px solid rgba(0,0,0,.08);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text-light);cursor:pointer;transition:all .2s;}
+  .qz-back:hover{border-color:var(--text-muted);color:var(--text);}
+  .qz-btn{padding:10px 28px;background:var(--accent);border:none;border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(27,107,45,.15);}
+  .qz-btn:hover{background:#15571F;}
+  .qz-btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
+
+  .qz-form{margin-bottom:8px;}
+  .qz-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin:16px 0 6px;}
+  .qz-label:first-child{margin-top:0;}
+  .qz-input{width:100%;padding:12px 14px;background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:10px;font-family:var(--sans);font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+  .qz-input:focus{border-color:var(--accent);}
+  .qz-input::placeholder{color:var(--text-muted);}
+
+  .qz-result{display:none;text-align:center;animation:fadeUp .4s ease;}
+  .qz-result.active{display:block;}
+  .qz-result-title{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:12px;}
+  .qz-result-text{font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:12px;}
+
+  .qz-messenger{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:20px;margin-top:20px;text-align:left;}
+  .qz-copy-block{background:var(--bg);border-radius:8px;padding:14px;margin-bottom:10px;}
+  .qz-copy-text{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;}
+  .qz-btn-copy{display:block;width:100%;padding:9px;background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--text);cursor:pointer;transition:all .2s;}
+  .qz-btn-copy:hover{border-color:var(--accent);color:var(--accent);}
+  .qz-btn-copy.copied{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .qz-btn-messenger{display:block;width:100%;padding:12px;background:var(--accent);color:#fff;font-family:var(--sans);font-size:13px;font-weight:600;text-align:center;text-decoration:none;border-radius:8px;transition:all .2s;}
+  .qz-btn-messenger:hover{background:#15571F;}
+</style>
+
+<script>
+// ═══════════════════════════════════════
+// CẤU HÌNH — THAY URL SAU KHI DEPLOY GOOGLE APPS SCRIPT
+// ═══════════════════════════════════════
+var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw4Fep7MVMr1Cu0XHCop1-J83002QTvfW7_nCB_wui4iE3E-rIQ-YMk2OASU-gGWOQ0/exec';
+// Hướng dẫn: xem file HUONG-DAN-CAI-DAT.md
+// ═══════════════════════════════════════
+
+var qzAnswers = {};
+var qzCurrent = 1;
+var qzQ6Choice = null;
+var qzTime = null;
+
+function openQuiz() {
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeQuiz() {
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function qzSelect(q, btn) {
+  btn.parentElement.querySelectorAll('.qz-opt').forEach(function(o){o.classList.remove('sel');});
+  btn.classList.add('sel');
+  qzAnswers[q] = btn.textContent.trim();
+  var nb = document.getElementById('qzNext'+q);
+  if(nb) nb.disabled = false;
+}
+function qzSelectQ6(choice, btn) {
+  btn.parentElement.querySelectorAll('.qz-opt').forEach(function(o){o.classList.remove('sel');});
+  btn.classList.add('sel');
+  qzQ6Choice = choice;
+  qzAnswers[6] = btn.textContent.trim();
+  document.getElementById('qzNext6').disabled = false;
+}
+function qzSelectTime(btn) {
+  document.querySelectorAll('.qz-time').forEach(function(o){o.classList.remove('sel');});
+  btn.classList.add('sel');
+  qzTime = btn.textContent.trim();
+}
+
+function qzGo(n) {
+  document.querySelectorAll('.qz-slide').forEach(function(s){s.classList.remove('active');});
+  document.querySelector('.qz-slide[data-q="'+n+'"]').classList.add('active');
+  qzCurrent = n;
+  var pct = ((n-1)/6)*100;
+  document.getElementById('qzProgressFill').style.width = pct+'%';
+  document.getElementById('qzProgressLabel').textContent = 'Câu '+n+' / 6';
+  document.getElementById('qzHeader').style.display = (n===1)?'block':'none';
+}
+
+function qzHandleQ6() {
+  document.querySelectorAll('.qz-slide').forEach(function(s){s.classList.remove('active');});
+  if(qzQ6Choice==='ready') {
+    document.querySelector('.qz-slide[data-q="booking"]').classList.add('active');
+    document.getElementById('qzProgressLabel').textContent = 'Đặt lịch hẹn';
+    document.getElementById('qzProgressFill').style.width = '90%';
+  } else {
+    document.getElementById('qzResultNotReady').classList.add('active');
+    document.getElementById('qzProgressLabel').textContent = 'Hoàn thành';
+    document.getElementById('qzProgressFill').style.width = '100%';
+  }
+  document.getElementById('qzHeader').style.display = 'none';
+}
+
+function qzBackToQ6() {
+  document.querySelectorAll('.qz-slide').forEach(function(s){s.classList.remove('active');});
+  document.querySelector('.qz-slide[data-q="6"]').classList.add('active');
+  qzCurrent = 6;
+  document.getElementById('qzProgressFill').style.width = ((5)/6*100)+'%';
+  document.getElementById('qzProgressLabel').textContent = 'Câu 6 / 6';
+}
+
+function qzShowBooking() {
+  document.getElementById('qzResultNotReady').classList.remove('active');
+  document.querySelector('.qz-slide[data-q="booking"]').classList.add('active');
+  document.getElementById('qzProgressLabel').textContent = 'Đặt lịch hẹn';
+  document.getElementById('qzProgressFill').style.width = '90%';
+}
+
+function qzSubmit() {
+  var name = document.getElementById('qzName').value.trim();
+  var phone = document.getElementById('qzPhone').value.trim();
+  if(!name||!phone){alert('Vui lòng nhập họ tên và số điện thoại.');return;}
+
+  qzAnswers.name = name;
+  qzAnswers.phone = phone;
+  qzAnswers.email = document.getElementById('qzEmail').value.trim();
+  qzAnswers.preferredTime = qzTime || 'Không chọn';
+  qzAnswers.submittedAt = new Date().toLocaleString('vi-VN');
+
+  // Gửi data đến Google Apps Script
+  if(WEBHOOK_URL && WEBHOOK_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:1, ...qzAnswers})
+    }).catch(function(e){console.error('Webhook error:',e);});
+  } else {
+    console.log('⚠️ Chưa cấu hình WEBHOOK_URL. Data:', JSON.stringify(qzAnswers, null, 2));
+  }
+
+  // Hiển thị kết quả
+  document.getElementById('qzCopyName').textContent = name;
+  document.getElementById('qzCopyPhone').textContent = phone;
+  document.querySelectorAll('.qz-slide').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('qzResultReady').classList.add('active');
+  document.getElementById('qzProgressFill').style.width = '100%';
+  document.getElementById('qzProgressLabel').textContent = 'Hoàn thành!';
+}
+
+function qzCopy() {
+  var text = document.getElementById('qzCopyText').innerText;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(qzCopied).catch(function(){qzFallbackCopy(text);});
+  } else {qzFallbackCopy(text);}
+}
+function qzFallbackCopy(text){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.left='-9999px';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);qzCopied();}
+function qzCopied(){var b=document.querySelector('.qz-btn-copy');b.textContent='✓ Đã sao chép!';b.classList.add('copied');setTimeout(function(){b.textContent='Sao chép tin nhắn';b.classList.remove('copied');},2500);}
+</script>
 
 <!-- ==================== SCROLL ANIMATION ==================== -->
 <script>
