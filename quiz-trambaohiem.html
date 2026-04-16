@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trạm Bảo Hiểm — Đánh giá nhu cầu bảo vệ tài chính</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EF;
+    --bg-deep: #0B1F0B;
+    --text: #1A1A1A;
+    --text-light: #5A5A5A;
+    --text-muted: #999;
+    --accent: #1B6B2D;
+    --accent-hover: #15571F;
+    --white: #FFFFFF;
+    --border: rgba(0,0,0,0.08);
+    --font: 'Be Vietnam Pro', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quiz-container {
+    max-width: 560px;
+    width: 100%;
+    padding: 40px 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ===== HEADER ===== */
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .quiz-brand {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .quiz-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .quiz-subtitle {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  /* ===== QUESTION ===== */
+  .question-slide {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .question-slide.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ===== OPTIONS ===== */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option {
+    display: block;
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    background: rgba(27, 107, 45, 0.03);
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: rgba(27, 107, 45, 0.06);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    gap: 16px;
+  }
+
+  .btn-back {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-back:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+  }
+
+  .btn-back.hidden { visibility: hidden; }
+
+  .btn-next {
+    padding: 12px 32px;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(27, 107, 45, 0.15);
+  }
+
+  .btn-next:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 20px rgba(27, 107, 45, 0.25);
+  }
+
+  .btn-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* ===== FORM (Q6) ===== */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+
+  .form-input:focus {
+    border-color: var(--accent);
+  }
+
+  .form-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .form-optional {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ===== RESULT ===== */
+  .result-screen {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .result-screen.active {
+    display: block;
+  }
+
+  .result-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  .result-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .result-text {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 32px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .result-contact {
+    padding: 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .result-contact p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+
+  .result-contact strong {
+    color: var(--text);
+  }
+
+  .result-note {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .messenger-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .copy-block {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .copy-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .btn-copy {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-copy:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-copy.copied {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  .btn-messenger {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-messenger:hover {
+    background: var(--accent-hover);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .quiz-container { padding: 32px 20px; }
+    .quiz-title { font-size: 1.3rem; }
+    .question-text { font-size: 1.1rem; }
+    .option { padding: 14px 16px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+
+  <!-- HEADER -->
+  <div class="quiz-header" id="quizHeader">
+    <div class="quiz-brand">Trạm Bảo Hiểm</div>
+    <h1 class="quiz-title">3 phút để hiểu rõ hơn về nhu cầu bảo vệ tài chính của gia đình bạn</h1>
+    <p class="quiz-subtitle">6 câu hỏi — không đáp án đúng sai — chỉ giúp bạn nhìn rõ hơn.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-label" id="progressLabel">Câu 1 / 6</div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question-slide active" id="q1">
+    <div class="question-number">Câu 1</div>
+    <div class="question-text">Có bao nhiêu người đang phụ thuộc vào thu nhập của bạn?</div>
+    <div class="options">
+      <button class="option" onclick="select(1, this)">Không có ai — tôi chỉ lo cho bản thân</button>
+      <button class="option" onclick="select(1, this)">1–2 người (vợ/chồng, 1 con nhỏ)</button>
+      <button class="option" onclick="select(1, this)">3–4 người (gia đình nhỏ + cha mẹ)</button>
+      <button class="option" onclick="select(1, this)">5 người trở lên</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back hidden">Quay lại</button>
+      <button class="btn-next" id="next1" disabled onclick="goTo(2)">Tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-slide" id="q2">
+    <div class="question-number">Câu 2</div>
+    <div class="question-text">Bạn và gia đình có thói quen tiết kiệm trước khi chi tiêu không?</div>
+    <div class="options">
+      <button class="option" onclick="select(2, this)">Có, luôn trích một khoản cố định mỗi tháng</button>
+      <button class="option" onclick="select(2, this)">Thỉnh thoảng, khi nào dư thì để dành</button>
+      <button class="option" onclick="select(2, this)">Chưa thật sự có thói quen này</button>
+      <button class="option" onclick="select(2, this)">Thu nhập hiện tại chỉ đủ chi tiêu</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(1)">Quay lại</button>
+      <button class="btn-next" id="next2" disabled onclick="goTo(3)">Tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-slide" id="q3">
+    <div class="question-number">Câu 3</div>
+    <div class="question-text">Bạn đã có kế hoạch hoặc khoản dự phòng đủ lớn để giúp gia đình không bị xáo trộn khi xảy ra rủi ro ngoài ý muốn chưa?</div>
+    <div class="options">
+      <button class="option" onclick="select(3, this)">Đã có — tôi cảm thấy khá yên tâm</button>
+      <button class="option" onclick="select(3, this)">Có một ít, nhưng chưa chắc là đủ</button>
+      <button class="option" onclick="select(3, this)">Chưa có — đây là điều tôi đang lo nghĩ</button>
+      <button class="option" onclick="select(3, this)">Chưa bao giờ nghĩ đến điều này</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(2)">Quay lại</button>
+      <button class="btn-next" id="next3" disabled onclick="goTo(4)">Tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-slide" id="q4">
+    <div class="question-number">Câu 4</div>
+    <div class="question-text">Bạn có muốn chuẩn bị một món quà mang theo thời gian — để trao lại cho con khi bước vào các cột mốc quan trọng của cuộc đời?</div>
+    <p style="font-size:14px; color:var(--text-muted); margin-bottom:24px; line-height:1.6;">Vào đại học, khởi nghiệp, kết hôn, ngôi nhà đầu tiên... Đời cha mẹ trồng cây, đời con cháu có bóng mát.</p>
+    <div class="options">
+      <button class="option" onclick="select(4, this)">Rất muốn — đây là điều ý nghĩa với tôi</button>
+      <button class="option" onclick="select(4, this)">Hay đấy — tôi chưa nghĩ đến nhưng muốn tìm hiểu</button>
+      <button class="option" onclick="select(4, this)">Ưu tiên của tôi hiện tại là bảo vệ trước, tích luỹ sau</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(3)">Quay lại</button>
+      <button class="btn-next" id="next4" disabled onclick="goTo(5)">Tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-slide" id="q5">
+    <div class="question-number">Câu 5</div>
+    <div class="question-text">Điều quan trọng nhất đối với bạn khi quyết định sở hữu một hợp đồng bảo hiểm là gì?</div>
+    <div class="options">
+      <button class="option" onclick="select(5, this)">Quyền lợi rõ ràng, minh bạch, dễ hiểu</button>
+      <button class="option" onclick="select(5, this)">Phí hợp lý, phù hợp với thu nhập</button>
+      <button class="option" onclick="select(5, this)">Người tư vấn đáng tin, đồng hành lâu dài</button>
+      <button class="option" onclick="select(5, this)">Công ty bảo hiểm uy tín, chi trả nhanh</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(4)">Quay lại</button>
+      <button class="btn-next" id="next5" disabled onclick="goTo(6)">Tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-slide" id="q6">
+    <div class="question-number">Câu cuối</div>
+    <div class="question-text">Bạn có sẵn sàng dành 30–45 phút cùng chuyên viên Trạm Bảo Hiểm để xác lập mục tiêu tài chính và lập kế hoạch hành động cụ thể?</div>
+    <div class="options">
+      <button class="option" onclick="selectQ6('ready', this)">Sẵn sàng sắp xếp thời gian — vì đây là việc quan trọng</button>
+      <button class="option" onclick="selectQ6('notready', this)">Tôi chưa sẵn sàng — đời còn dài, cứ từ từ</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(5)">Quay lại</button>
+      <button class="btn-next" id="next6" disabled onclick="handleQ6()">Bước tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- BOOKING FORM (ready path) -->
+  <div class="question-slide" id="bookingForm">
+    <div class="question-number">Đặt lịch hẹn</div>
+    <div class="question-text">Tuyệt vời! Hãy để lại thông tin để chuyên viên liên hệ hỗ trợ bạn.</div>
+
+    <div class="form-group">
+      <label class="form-label">Họ tên</label>
+      <input type="text" class="form-input" id="userName" placeholder="Nguyễn Văn A">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Số điện thoại</label>
+      <input type="tel" class="form-input" id="userPhone" placeholder="0xxx xxx xxx">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email <span class="form-optional">(tuỳ chọn)</span></label>
+      <input type="email" class="form-input" id="userEmail" placeholder="email@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Bạn muốn nhận cuộc gọi khi nào?</label>
+      <div class="options" style="margin-top:8px;">
+        <button class="option time-option" onclick="selectTime(this)">Sáng (8h – 12h)</button>
+        <button class="option time-option" onclick="selectTime(this)">Chiều (13h – 17h)</button>
+        <button class="option time-option" onclick="selectTime(this)">Tối (18h – 20h)</button>
+        <button class="option time-option" onclick="selectTime(this)">Bất kỳ lúc nào cũng được</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="backToQ6()">Quay lại</button>
+      <button class="btn-next" onclick="submitBooking()">Bước tiếp theo</button>
+    </div>
+  </div>
+
+  <!-- RESULT: READY -->
+  <div class="result-screen" id="resultReady">
+    <div class="result-icon">✅</div>
+    <h2 class="result-title">Cảm ơn bạn!</h2>
+    <p class="result-text">Thông tin đã được gửi đến Trạm Bảo Hiểm. Chuyên viên sẽ liên hệ bạn trong vòng 24 giờ theo khung giờ bạn chọn.</p>
+
+    <div class="messenger-box">
+      <p style="font-size:14px; font-weight:600; color:var(--text); margin-bottom:12px;">Hoặc gửi tin nhắn nhanh qua Messenger:</p>
+      <div class="copy-block" id="copyBlock">
+        <p class="copy-text" id="copyText">Xin chào Trạm Bảo Hiểm, mình vừa hoàn thành bài đánh giá nhu cầu và muốn được tư vấn thêm. Mình tên <span id="copyName">___</span>, SĐT <span id="copyPhone">___</span>.</p>
+        <button class="btn-copy" onclick="copyMessage()">Sao chép tin nhắn</button>
+      </div>
+      <a href="https://m.me/trambaohiemonline" target="_blank" class="btn-messenger">Mở Messenger</a>
+    </div>
+
+    <div class="result-contact">
+      <p>Hotline: <strong>0974.262.599</strong></p>
+      <p>Email: <strong>cskh@trambaohiem.com</strong></p>
+    </div>
+  </div>
+
+  <!-- RESULT: NOT READY -->
+  <div class="result-screen" id="resultNotReady">
+    <div class="result-icon" style="font-size:2.5rem;">🤝</div>
+    <h2 class="result-title">Hoàn toàn hiểu bạn.</h2>
+    <p class="result-text">Không ai muốn nghĩ đến chuyện rủi ro — và việc chưa sẵn sàng là điều rất bình thường.</p>
+    <p class="result-text" style="margin-top:-16px;">Chỉ có một điều cần biết: <strong>bảo hiểm phụ thuộc vào thời điểm.</strong> Phí hôm nay sẽ luôn thấp hơn phí ngày mai. Sức khoẻ hôm nay sẽ luôn tốt hơn sức khoẻ năm sau. Và có những lúc — dù muốn mua — bạn sẽ không còn đủ điều kiện.</p>
+    <p class="result-text" style="margin-top:-16px;">Chúng tôi không vội. Bạn cứ suy nghĩ. Nhưng khi bạn sẵn sàng — chúng tôi ở đây.</p>
+
+    <div style="margin-top:32px;">
+      <button class="btn-next" onclick="showBookingFromNotReady()" style="width:100%; padding:16px; font-size:15px;">Khi nào sẵn sàng — đặt hẹn tại đây</button>
+    </div>
+
+    <div class="result-contact" style="margin-top:24px;">
+      <p>Hotline: <strong>0974.262.599</strong></p>
+      <p>Email: <strong>cskh@trambaohiem.com</strong></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const answers = {};
+  let current = 1;
+  const total = 6;
+  let q6Choice = null;
+  let selectedTime = null;
+
+  function select(q, btn) {
+    const slide = document.getElementById('q' + q);
+    slide.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+    answers[q] = btn.textContent.trim();
+    const nextBtn = document.getElementById('next' + q);
+    if (nextBtn) nextBtn.disabled = false;
+  }
+
+  function selectQ6(choice, btn) {
+    document.getElementById('q6').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+    q6Choice = choice;
+    answers[6] = btn.textContent.trim();
+    document.getElementById('next6').disabled = false;
+  }
+
+  function selectTime(btn) {
+    document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedTime = btn.textContent.trim();
+  }
+
+  function goTo(n) {
+    // Hide all slides
+    document.querySelectorAll('.question-slide').forEach(s => s.classList.remove('active'));
+    document.getElementById('q' + n).classList.add('active');
+    current = n;
+    updateProgress();
+    document.getElementById('quizHeader').style.display = (n === 1) ? 'block' : 'none';
+  }
+
+  function handleQ6() {
+    if (q6Choice === 'ready') {
+      // Show booking form
+      document.getElementById('q6').classList.remove('active');
+      document.getElementById('bookingForm').classList.add('active');
+      document.getElementById('progressFill').style.width = '90%';
+      document.getElementById('progressLabel').textContent = 'Đặt lịch hẹn';
+      document.getElementById('quizHeader').style.display = 'none';
+    } else {
+      // Show not-ready result
+      document.querySelectorAll('.question-slide').forEach(s => s.classList.remove('active'));
+      document.getElementById('resultNotReady').classList.add('active');
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressLabel').textContent = 'Hoàn thành';
+      document.getElementById('quizHeader').style.display = 'none';
+    }
+  }
+
+  function backToQ6() {
+    document.getElementById('bookingForm').classList.remove('active');
+    document.getElementById('q6').classList.add('active');
+    current = 6;
+    updateProgress();
+  }
+
+  function submitBooking() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+
+    if (!name || !phone) {
+      alert('Vui lòng nhập họ tên và số điện thoại.');
+      return;
+    }
+
+    const email = document.getElementById('userEmail').value.trim();
+    answers.name = name;
+    answers.phone = phone;
+    answers.email = email;
+    answers.preferredTime = selectedTime || 'Không chọn';
+
+    // Build email body
+    const lines = [
+      '=== KHÁCH HÀNG MỚI TỪ QUIZ ===',
+      '',
+      'Họ tên: ' + name,
+      'SĐT: ' + phone,
+      'Email: ' + (email || 'Không cung cấp'),
+      'Khung giờ muốn nhận cuộc gọi: ' + (selectedTime || 'Không chọn'),
+      '',
+      '--- CÂU TRẢ LỜI ---',
+    ];
+    for (let i = 1; i <= 6; i++) {
+      lines.push('Câu ' + i + ': ' + (answers[i] || 'Chưa trả lời'));
+    }
+    lines.push('');
+    lines.push('Thời gian: ' + new Date().toLocaleString('vi-VN'));
+
+    const subject = encodeURIComponent('[Trạm Bảo Hiểm] Lead mới: ' + name + ' - ' + phone);
+    const body = encodeURIComponent(lines.join('\n'));
+
+    // Send email via mailto (opens in background iframe)
+    const mailLink = 'mailto:cskh@trambaohiem.com?subject=' + subject + '&body=' + body;
+    const mailFrame = document.createElement('iframe');
+    mailFrame.style.display = 'none';
+    mailFrame.src = mailLink;
+    document.body.appendChild(mailFrame);
+    setTimeout(() => mailFrame.remove(), 3000);
+
+    // Also log for Notion webhook (placeholder - replace with actual Notion API)
+    console.log('=== NOTION CRM DATA ===');
+    console.log(JSON.stringify(answers, null, 2));
+
+    // Populate messenger copy text
+    document.getElementById('copyName').textContent = name;
+    document.getElementById('copyPhone').textContent = phone;
+
+    // Show result
+    document.getElementById('bookingForm').classList.remove('active');
+    document.getElementById('resultReady').classList.add('active');
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Hoàn thành!';
+  }
+
+  function copyMessage() {
+    const text = document.getElementById('copyText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.btn-copy');
+      btn.textContent = '✓ Đã sao chép!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Sao chép tin nhắn';
+        btn.classList.remove('copied');
+      }, 2500);
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const btn = document.querySelector('.btn-copy');
+      btn.textContent = '✓ Đã sao chép!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Sao chép tin nhắn';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  }
+  }
+
+  function showBookingFromNotReady() {
+    document.getElementById('resultNotReady').classList.remove('active');
+    document.getElementById('bookingForm').classList.add('active');
+    document.getElementById('progressLabel').textContent = 'Đặt lịch hẹn';
+    document.getElementById('progressFill').style.width = '90%';
+  }
+
+  function updateProgress() {
+    const pct = ((current - 1) / total) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = 'Câu ' + current + ' / ' + total;
+  }
+</script>
+
+</body>
+</html>
