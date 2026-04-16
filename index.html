@@ -1084,7 +1084,7 @@
 // ═══════════════════════════════════════
 // CẤU HÌNH — THAY URL SAU KHI DEPLOY GOOGLE APPS SCRIPT
 // ═══════════════════════════════════════
-var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw4Fep7MVMr1Cu0XHCop1-J83002QTvfW7_nCB_wui4iE3E-rIQ-YMk2OASU-gGWOQ0/exec';
+var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwIOa8YcPmIHJKrRcRlcLeKaI6bwjhkFB6RKSe1Fjvh8M58AqmfmYEjpzLUaxS2tWRI/exec';
 // Hướng dẫn: xem file HUONG-DAN-CAI-DAT.md
 // ═══════════════════════════════════════
 
@@ -1177,8 +1177,8 @@ function qzSubmit() {
     fetch(WEBHOOK_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({action:1, ...qzAnswers})
+      headers: {'Content-Type':'text/plain'},
+      body: JSON.stringify(qzAnswers)
     }).catch(function(e){console.error('Webhook error:',e);});
   } else {
     console.log('⚠️ Chưa cấu hình WEBHOOK_URL. Data:', JSON.stringify(qzAnswers, null, 2));
