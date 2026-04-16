@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trạm Bảo Hiểm — Để thời gian chứng minh tình yêu</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EF;
+    --bg-warm: #EDEAE4;
+    --bg-deep: #0B1F0B;
+    --text: #1A1A1A;
+    --text-light: #5A5A5A;
+    --text-muted: #999999;
+    --accent: #1B6B2D;
+    --accent-soft: #238636;
+    --accent-glow: rgba(27, 107, 45, 0.08);
+    --gold: #1B6B2D;
+    --gold-soft: rgba(27, 107, 45, 0.08);
+    --white: #FFFFFF;
+    --border: rgba(0, 0, 0, 0.06);
+    --serif: 'Be Vietnam Pro', -apple-system, sans-serif;
+    --sans: 'Be Vietnam Pro', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 720px; position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 18px 52px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+    box-shadow: 0 4px 24px rgba(27, 107, 45, 0.2);
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(27, 107, 45, 0.35);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+
+  .scroll-hint span {
+    display: block;
+    width: 2px;
+    height: 32px;
+    background: var(--text-muted);
+    margin: 0 auto;
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 80px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .section-wide {
+    padding: 80px 24px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    padding: 80px 24px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 36px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  p { margin-bottom: 20px; }
+
+  .lead {
+    font-size: 20px;
+    color: var(--text-light);
+    line-height: 1.85;
+  }
+
+  /* ===== PAIN SECTION ===== */
+  .pain-section {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pain-question {
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding-left: 24px;
+    border-left: 3px solid var(--gold);
+  }
+
+  /* ===== STORY SECTION ===== */
+  .story-block {
+    background: var(--bg-warm);
+    border-radius: 12px;
+    padding: 36px 32px;
+    margin: 28px 0;
+    position: relative;
+  }
+
+  .story-block::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    font-family: var(--serif);
+    font-size: 120px;
+    color: var(--gold);
+    opacity: 0.25;
+    line-height: 1;
+  }
+
+  .story-quote {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .story-attr {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ===== INSIGHT CARDS ===== */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin: 48px 0;
+  }
+
+  @media (min-width: 640px) {
+    .insight-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .insight-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .insight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  }
+
+  .insight-number {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .insight-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+
+  .insight-card p {
+    font-size: 16px;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+
+  /* ===== REFRAME SECTION ===== */
+  .reframe-section {
+    background: var(--bg-deep);
+    color: var(--white);
+    text-align: center;
+  }
+
+  .reframe-section h2 { color: var(--white); }
+
+  .reframe-section .lead { color: rgba(255,255,255,0.7); }
+
+  .reframe-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0 16px;
+  }
+
+  .reframe-old {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: line-through;
+  }
+
+  .reframe-arrow {
+    font-size: 20px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .reframe-new {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  /* ===== FEAR TO LOVE ===== */
+  .timeline {
+    position: relative;
+    margin: 48px 0;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 20px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+  }
+
+  .timeline-item:last-child::before { background: var(--gold); }
+
+  .timeline-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .timeline-item:last-child .timeline-label { color: var(--gold); }
+
+  /* ===== PROOF SECTION ===== */
+  .proof-stat {
+    text-align: center;
+    padding: 24px;
+  }
+
+  .proof-stat .number {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .proof-stat .label {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 32px 0 24px;
+  }
+
+  @media (max-width: 640px) {
+    .proof-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== OBJECTION SECTION ===== */
+  .objection-block {
+    margin-bottom: 24px;
+    padding: 28px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .objection-q {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .objection-q::before {
+    content: '';
+  }
+
+  .objection-a {
+    color: var(--text-light);
+    font-size: 17px;
+  }
+
+  /* ===== CTA SECTION ===== */
+  .cta-section {
+    background: linear-gradient(135deg, var(--bg-deep) 0%, #142E14 100%);
+    text-align: center;
+    color: var(--white);
+    padding: 80px 24px;
+  }
+
+  .cta-section h2 {
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .cta-section .lead {
+    color: rgba(255,255,255,0.8);
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 20px 56px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(27, 107, 45, 0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(27, 107, 45, 0.45);
+  }
+
+  .cta-note {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 20px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 48px 24px;
+    font-size: 14px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    text-align: center;
+    margin: 60px auto;
+    max-width: 720px;
+  }
+
+  .divider span {
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  .divider em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+
+  /* ===== HIGHLIGHT ===== */
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--gold-soft) 60%);
+    padding: 0 4px;
+  }
+
+  .text-accent { color: var(--accent); font-weight: 600; }
+
+  /* ===== PULL QUOTE ===== */
+  .pull-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+    font-style: italic;
+    text-align: center;
+    color: var(--text);
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  /* ===== TRIGGER CARDS ===== */
+  .trigger-section {
+    padding: 80px 24px 80px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trigger-intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 56px;
+  }
+
+  .trigger-intro p {
+    font-size: 19px;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .trigger-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .trigger-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .trigger-card {
+    position: relative;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 28px 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+
+  .trigger-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  }
+
+  .trigger-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .trigger-emoji {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .trigger-card h3 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .trigger-card p {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 0;
+  }
+
+  .trigger-card .trigger-link {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--accent);
+    margin-top: 14px;
+    display: block;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.3); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .section, .section-wide { padding: 60px 20px; }
+    .story-block { padding: 28px 20px; }
+    .reframe-box { flex-direction: column; gap: 8px; }
+    .hero { padding: 48px 20px; min-height: auto; padding-top: 100px; padding-bottom: 80px; }
+    .trigger-section { padding: 60px 20px 80px; }
+    .cta-section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Trạm Bảo Hiểm</div>
+    <h1>Bảo hiểm không chỉ là một giải pháp tài chính, mà là cách con người thể hiện <em>tình yêu</em> và <em>trách nhiệm</em> dành cho nhau.</h1>
+    <p class="hero-sub">Chỉ những người thật sự yêu thương mới nghĩ đến chuyện này — khi họ vẫn còn khỏe mạnh, vẫn còn thời gian, và vẫn còn có thể lựa chọn.</p>
+    <a href="#bat-dau" class="hero-cta">Tôi muốn hiểu thêm</a>
+  </div>
+  <div class="scroll-hint"><span></span></div>
+</section>
+
+<!-- ==================== TRIGGER CARDS ==================== -->
+<section class="trigger-section" id="bat-dau">
+  <div class="trigger-intro fade-in">
+    <p>Mỗi người đến với bảo hiểm vì một lý do khác nhau.<br>Nhưng tất cả đều bắt đầu từ cùng một nơi — <strong>tình yêu dành cho ai đó.</strong></p>
+  </div>
+
+  <div class="trigger-grid">
+
+    <div class="trigger-card fade-in">
+      <span class="trigger-emoji">👶</span>
+      <h3>Tình yêu với con cái</h3>
+      <p>Bạn muốn con được học hành đàng hoàng, lớn lên đầy đủ — kể cả khi một ngày bạn không còn đồng hành cùng con. Bảo hiểm là lời hứa: "Dù chuyện gì xảy ra, tương lai con vẫn được bảo vệ."</p>
+      <span class="trigger-link">→ Bảo hiểm là tình yêu đi trước thời gian</span>
+    </div>
+
+    <div class="trigger-card fade-in">
+      <span class="trigger-emoji">👴</span>
+      <h3>Phụng dưỡng cha mẹ</h3>
+      <p>Cha mẹ đã dành cả đời lo cho bạn. Bây giờ đến lượt bạn. Nhưng nếu bạn đổ bệnh hay gặp biến cố — ai sẽ chăm sóc họ thay bạn? Bảo hiểm giúp bạn giữ trọn chữ hiếu, ngay cả trong tình huống xấu nhất.</p>
+      <span class="trigger-link">→ Bảo hiểm là chữ hiếu được chuẩn bị trước</span>
+    </div>
+
+    <div class="trigger-card fade-in">
+      <span class="trigger-emoji">💑</span>
+      <h3>Món quà cho người bạn đời</h3>
+      <p>Bạn không nói "anh yêu em" mỗi ngày. Nhưng bạn thể hiện bằng cách lo toan, gánh vác, bảo vệ. Bảo hiểm là tình yêu thầm lặng — một món quà mà người nhận có thể chưa biết hôm nay, nhưng sẽ biết ơn cả đời.</p>
+      <span class="trigger-link">→ Bảo hiểm là tình yêu thầm lặng nhưng trọn vẹn</span>
+    </div>
+
+    <div class="trigger-card fade-in">
+      <span class="trigger-emoji">🛡️</span>
+      <h3>Bảo vệ chính mình</h3>
+      <p>Bạn là trụ cột. Nếu bạn gục ngã — cả gia đình chao đảo. Bảo hiểm cho chính bạn không phải ích kỷ, mà là trách nhiệm lớn nhất bạn có thể làm cho những người phụ thuộc vào mình.</p>
+      <span class="trigger-link">→ Bảo vệ mình chính là yêu thương người thân</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== STATS SECTION ==================== -->
+<section class="pain-section">
+  <div class="section">
+    <h2 class="fade-in">Sự thật mà ít người Việt Nam biết</h2>
+
+    <div class="proof-grid fade-in">
+      <div class="proof-stat">
+        <div class="number">88%</div>
+        <div class="label">người Việt chưa có<br>bảo hiểm nhân thọ</div>
+      </div>
+      <div class="proof-stat">
+        <div class="number">71.400<span style="font-size:1.5rem"> tỷ</span></div>
+        <div class="label">đồng đã chi trả quyền lợi<br>bảo hiểm nhân thọ năm 2024</div>
+      </div>
+      <div class="proof-stat">
+        <div class="number">89%</div>
+        <div class="label">gia đình Việt không có<br>kế hoạch bảo vệ tài chính</div>
+      </div>
+    </div>
+
+    <p class="fade-in" style="text-align:center; max-width:600px; margin: 32px auto 0; color: var(--text-light);">Trong khi tại Singapore, 80% dân số đã có bảo hiểm nhân thọ. Malaysia là 50%. Philippines là 38%. Việt Nam — chỉ mới 11,7%.</p>
+    <p class="fade-in" style="text-align:center; max-width:600px; margin: 16px auto 0;">Nghĩa là <span class="highlight">cứ 10 gia đình Việt, gần 9 gia đình đang đối mặt rủi ro tài chính mà không có bất kỳ tấm lá chắn nào.</span></p>
+  </div>
+</section>
+
+<!-- ==================== REALITY CHECK ==================== -->
+<section class="section">
+  <h2 class="fade-in">Những con số không ai muốn đọc — nhưng người trưởng thành cần biết</h2>
+  <p class="lead fade-in">Đây không phải để dọa bạn. Đây là để bạn hiểu: những rủi ro này không xa lạ — chúng đang xảy ra mỗi ngày, với những gia đình giống hệt gia đình bạn.</p>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q" style="color: var(--text);">🏥 Chi phí điều trị ung thư trung bình: 176 triệu đồng/năm</p>
+    <p class="objection-a">Mỗi năm Việt Nam ghi nhận khoảng 180.000 ca ung thư mới. Chi phí điều trị trung bình trên 176 triệu đồng/năm theo thống kê của Bệnh viện K — và người bệnh phải tự chi trả tới 70% từ tiền túi. Một gia đình trung lưu có thể cạn kiệt tài chính chỉ sau 1-2 năm điều trị.</p>
+  </div>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q" style="color: var(--text);">💔 37,4% bệnh nhân ung thư Việt Nam rơi vào đói nghèo</p>
+    <p class="objection-a">Việt Nam có tỷ lệ bệnh nhân ung thư chịu "chi phí thảm họa" cao nhất ASEAN. Nghĩa là điều trị bệnh khiến cả gia đình rơi xuống ngưỡng nghèo. Không phải vì bệnh quá nặng — mà vì không có kế hoạch tài chính dự phòng.</p>
+  </div>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q" style="color: var(--text);">⏰ Một tai nạn, một cơn đột quỵ — không hẹn trước</p>
+    <p class="objection-a">Bạn không chọn được lúc nào bệnh đến. Nhưng bạn chọn được việc chuẩn bị hay không. Chi phí nằm ICU dao động 5-15 triệu đồng/ngày. Một ca phẫu thuật tim có thể lên đến 200-500 triệu. Tiền tiết kiệm bao nhiêu năm, có thể hết trong vài tuần.</p>
+  </div>
+
+  <p class="fade-in" style="margin-top: 40px; font-family: var(--serif); font-size: 1.15rem; font-style: italic; text-align: center; color: var(--text-light); max-width: 580px; margin-left: auto; margin-right: auto;">Nhìn thẳng vào những điều này không phải là bi quan.<br>Đó là cách một người yêu thương gia đình thật sự hành động — <span style="color: var(--accent);">chuẩn bị trước khi cần, thay vì hối tiếc khi đã muộn.</span></p>
+</section>
+
+<!-- ==================== REFRAME DARK ==================== -->
+<section class="reframe-section section-full fade-in">
+  <div class="section-wide" style="padding-top:0;padding-bottom:0;">
+    <h2>Thay đổi một góc nhìn,<br>thay đổi cả quyết định</h2>
+
+    <div class="reframe-box">
+      <span class="reframe-old">"Mất tiền phòng rủi ro"</span>
+      <span class="reframe-arrow">→</span>
+      <span class="reframe-new">"Chuyển tiền cho phiên bản tương lai của gia đình mình"</span>
+    </div>
+    <div class="reframe-box">
+      <span class="reframe-old">"Mua thứ mình chẳng bao giờ dùng"</span>
+      <span class="reframe-arrow">→</span>
+      <span class="reframe-new">"Chuẩn bị thầm lặng cho người mình yêu"</span>
+    </div>
+    <div class="reframe-box">
+      <span class="reframe-old">"Tốn phí hàng tháng"</span>
+      <span class="reframe-arrow">→</span>
+      <span class="reframe-new">"Mỗi tháng gửi một lời hứa giữ trọn trách nhiệm"</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STORY ==================== -->
+<section class="section">
+  <h2 class="fade-in">Món quà thầm lặng của thời gian</h2>
+
+  <p class="fade-in">Một người phụ nữ lập hợp đồng bảo hiểm cho cô con gái riêng của chồng — cô bé 16 tuổi chưa chấp nhận mẹ kế. Không nói với ai. Chỉ đóng phí đều đặn, năm này qua năm khác.</p>
+
+  <p class="fade-in">Mười năm sau, trước ngày cưới con, cô trao lại hợp đồng cùng một câu:</p>
+
+  <div class="story-block fade-in">
+    <p class="story-quote">"Đây là món quà mẹ đã chuẩn bị cho con từ khi mẹ bước vào gia đình này."</p>
+  </div>
+
+  <p class="fade-in">Cô dâu bật khóc. Người cha xúc động nói: điều ông lo lắng nhất không phải tiền bạc, mà là sự hòa thuận trong gia đình — <span class="highlight">và một hợp đồng bảo hiểm đã giải quyết được điều đó.</span></p>
+  <p class="fade-in" style="color: var(--text-light); font-style: italic;">Bảo hiểm không nói thay bạn. Nhưng thời gian sẽ chứng minh thay bạn.</p>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<section class="section">
+  <h2 class="fade-in">Từ trì hoãn đến hành động — chuyện gì thật sự xảy ra?</h2>
+  <p class="fade-in">Mỗi năm trôi qua mà bạn không có bảo hiểm, đây là những gì đang thay đổi mà bạn không nhìn thấy:</p>
+
+  <div class="timeline fade-in">
+    <div class="timeline-item">
+      <div class="timeline-label">Năm 1-2</div>
+      <p>"Mình còn trẻ, khỏe, để sau." Phí bảo hiểm ở mức thấp nhất. Sức khỏe tốt nhất. Nhưng bạn chưa hành động.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Năm 3-5</div>
+      <p>Áp lực tài chính tăng — mua nhà, nuôi con, chi phí sinh hoạt leo thang. Tiền tiết kiệm phân tán. Phí bảo hiểm bắt đầu cao hơn.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Năm 7-10</div>
+      <p>Sức khỏe bắt đầu có dấu hiệu. Huyết áp, mỡ máu, đau lưng. Một số sản phẩm bảo hiểm bắt đầu từ chối bạn hoặc tính phí rất cao.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Khoảnh khắc sự thật</div>
+      <p><strong>Khi chuyện xảy ra — và nó sẽ xảy ra</strong> — bạn không còn cơ hội lựa chọn nữa. Lúc đó, bạn sẽ ước mình đã hành động khi còn có thể.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OBJECTION HANDLING ==================== -->
+<section class="section">
+  <h2 class="fade-in">Những điều bạn đang nghĩ — mình hiểu</h2>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q">"Tôi chưa đủ tiền để mua bảo hiểm."</p>
+    <p class="objection-a">Bạn không cần nhiều tiền để bắt đầu. Một ly trà sữa mỗi tuần — khoảng 200-300 nghìn/tháng — đã có thể tạo ra tấm lá chắn đầu tiên cho gia đình bạn. Câu hỏi thật sự không phải "đủ tiền chưa" mà là "nếu không có, gia đình mình sẽ ra sao?"</p>
+  </div>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q">"Tôi còn trẻ, chưa cần vội."</p>
+    <p class="objection-a">Đúng, bạn còn trẻ. Và đó chính là lúc phí bảo hiểm thấp nhất, sức khỏe tốt nhất, khả năng được chấp nhận cao nhất. Mỗi năm trôi qua, ba yếu tố này đều đi xuống. Trẻ không phải lý do để chờ — trẻ là lợi thế lớn nhất bạn đang có.</p>
+  </div>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q">"Tôi không tin bảo hiểm, nghe nhiều chuyện tiêu cực."</p>
+    <p class="objection-a">Sự hoài nghi là hoàn toàn hợp lý. Nhiều trải nghiệm không tốt xảy ra vì người mua không hiểu rõ quyền lợi, hoặc người tư vấn không đặt lợi ích khách hàng lên đầu. Đó là lý do bạn cần một người tư vấn minh bạch — người giải thích rõ ràng bạn đang mua gì, được gì, và không được gì.</p>
+  </div>
+
+  <div class="objection-block fade-in">
+    <p class="objection-q">"Để tôi tìm hiểu thêm rồi quyết định."</p>
+    <p class="objection-a">Tìm hiểu là tốt. Nhưng nếu 6 tháng trước bạn cũng nói câu này, và bây giờ bạn vẫn chưa có bảo hiểm — thì "tìm hiểu thêm" đang trở thành "trì hoãn thêm". Hãy bắt đầu bằng một cuộc trò chuyện 15 phút — không cam kết, không áp lực. Chỉ cần hiểu rõ hơn.</p>
+  </div>
+</section>
+
+<!-- ==================== WHY TRAM BAO HIEM ==================== -->
+<section class="pain-section">
+  <div class="section fade-in">
+    <h2>Tại sao nên bắt đầu tại Trạm Bảo Hiểm?</h2>
+    <p class="lead">Chúng tôi không bán bảo hiểm. Chúng tôi giúp bạn hiểu mình cần gì — rồi bạn tự quyết định.</p>
+    <p>Tại Trạm Bảo Hiểm, chúng tôi tin rằng một tư vấn viên tốt không phải người nói hay nhất, mà là người lắng nghe nhiều nhất. Chúng tôi sẽ hỏi bạn về cuộc sống, về gia đình, về những điều bạn lo lắng — trước khi nói bất cứ điều gì về sản phẩm.</p>
+    <p>Vì <span class="highlight">bảo hiểm đúng phải bắt đầu từ con người, không phải con số.</span></p>
+    <p><strong>Minh bạch</strong> — Bạn hiểu rõ mình đang mua gì, được gì, và không được gì.</p>
+    <p><strong>Phù hợp</strong> — Giải pháp vừa với túi tiền và vừa với cuộc sống của bạn.</p>
+    <p><strong>Đồng hành lâu dài</strong> — Mua bảo hiểm là bước đầu. Đồng hành 10 năm, 20 năm sau đó mới là điều quan trọng.</p>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="cta-section">
+  <h2 class="fade-in">Bạn không cần quyết định ngay.<br>Bạn chỉ cần bắt đầu.</h2>
+  <p class="lead fade-in">15 phút tìm hiểu hôm nay có thể thay đổi cả tương lai tài chính của gia đình bạn. Không cam kết. Không áp lực.</p>
+  <a href="tel:0974262599" class="cta-button fade-in">Bắt đầu tại đây</a>
+  <p class="cta-note fade-in">Hotline: 0974.262.599 · Email: cskh@trambaohiem.com</p>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-brand">Trạm Bảo Hiểm</div>
+  <p>trambaohiem.com · 0974.262.599</p>
+</footer>
+
+<!-- ==================== SCROLL ANIMATION ==================== -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
